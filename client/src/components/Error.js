@@ -1,5 +1,5 @@
 import React from 'react'
-
+//bootstrap alert
 function Error({message}) {
   return (
     <div>

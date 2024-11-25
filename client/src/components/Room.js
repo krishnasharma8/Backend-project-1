@@ -1,11 +1,14 @@
-import React, { useState,useEffect } from "react";
-import { Modal, Button,Carousel } from "react-bootstrap";
-import {Link} from 'react-router-dom'
-function Room({ room }) {
+import React, { useState } from "react";
+import { Modal, Button, Carousel } from "react-bootstrap";
+import { Link } from 'react-router-dom';
+
+function Room({ room, fromdate, todate }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  console.log("From Date:", fromdate, "To Date:", todate);
 
   return (
     <div className="row bs">
@@ -13,7 +16,7 @@ function Room({ room }) {
         <img src={room.imageurls[0]} alt="Room" className="smallimg" />
       </div>
 
-      <div className="col-md-7 ">
+      <div className="col-md-7">
         <h1>{room.name}</h1>
         <b>
           <p>Max Count: {room.maxcount}</p>
@@ -21,8 +24,9 @@ function Room({ room }) {
           <p>Type: {room.type}</p>
         </b>
         <div style={{ float: "right" }}>
-          <Link to={`/book/${room._id}`}>
-          <button className="btn btn-primary m-2">Book Now</button>
+          {/* Ensure fromdate and todate are passed as part of the link */}
+          <Link to={`/book/${room._id}/${fromdate || 'not-selected'}/${todate || 'not-selected'}`}>
+            <button className="btn btn-primary m-2">Book Now</button>
           </Link>
           <Button className="btn btn-primary m-2" onClick={handleShow}>
             View Details
@@ -31,22 +35,23 @@ function Room({ room }) {
       </div>
 
       <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header >
+        <Modal.Header>
           <Modal.Title>{room.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Carousel>
-       {room.imageurls.map(url=>{
-        return  <Carousel.Item>
-        <img
-        className="d-block w-100 bigimg"
-        src={url}
-        />
-      </Carousel.Item>
-       })}
-    </Carousel>
-  <p>{room.description}</p>
-</Modal.Body>
+          <Carousel>
+            {room.imageurls.map((url, index) => (
+              <Carousel.Item key={index}>
+                <img
+                  className="d-block w-100 bigimg"
+                  src={url}
+                  alt={`Room view ${index}`}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
+          <p>{room.description}</p>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

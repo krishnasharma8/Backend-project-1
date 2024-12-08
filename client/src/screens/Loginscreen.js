@@ -10,21 +10,22 @@ function Loginscreen() {
     const [error, setError] = useState(null); // Initialize as null
 
     async function Login() {
-        const user = {
-            email,
-            password,
-        };
+        const user = { email, password };
 
         try {
             setLoading(true);
             const result = await axios.post('/api/users/login', user);
             setLoading(false);
-            localStorage.setItem('currentUser', JSON.stringify(result.data)); // Use result.data
+
+            // Save token in localStorage
+            localStorage.setItem('currentUser', JSON.stringify(result.data));
+
+            // Redirect to home page
             window.location.href = '/home';
         } catch (error) {
             console.log(error);
             setLoading(false);
-            setError('Invalid Credentials'); // Set an error message
+            setError('Invalid Credentials');
         }
     }
 

@@ -24,6 +24,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+           <Route
+            path="/book/:roomid/:fromdate/:todate"
+            element={
+              <ProtectedRoute>
+                <Bookingscreen />
+              </ProtectedRoute>
+            }
+          />
          
           <Route
             path="/profile"

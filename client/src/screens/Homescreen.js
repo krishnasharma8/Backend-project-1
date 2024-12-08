@@ -3,17 +3,12 @@ import axios from "axios";
 import Room from '../components/Room';  
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import moment from 'moment';
-import { DatePicker } from 'antd';
 
-const { RangePicker } = DatePicker;
 
 function Homescreen() {
   const [rooms, setrooms] = useState([]);
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
-  const [fromdate, setfromdate] = useState(null); // Initialize as null
-  const [todate, settodate] = useState(null); // Initialize as null
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,45 +18,28 @@ function Homescreen() {
         setrooms(data);
         setloading(false);
       } catch (error) {
-        seterror(error.message);
+        seterror(error.message); // Set the error message
         console.log(error);
         setloading(false);
       }
     };
 
-    fetchData(); 
-  }, []);
-
-  // This function will handle setting the selected date range
-  function filterByDate(dates, dateStrings) {
-    // Check if both dates are selected
-    if (dateStrings && dateStrings.length === 2) {
-      setfromdate(dateStrings[0]); // Set fromdate
-      settodate(dateStrings[1]);   // Set todate
-    }
-  }
+    fetchData(); // Call the async function
+  }, []); // Empty dependency array to run only once on mount
 
   return (
     <div className="container">
-      <div className="row mt-5">
-        <div className="col-md-3">
-          {/* Attach filterByDate to handle date selection */}
-          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
-        </div>
-      </div>
-
       <div className="row justify-content-center mt-5">
         {loading ? (
           <Loader/>
         ) : rooms.length ? (
           rooms.map((room) => (
-            <div className="col-md-9 mt-3" key={room._id}>
-              {/* Pass fromdate and todate to the Room component */}
-              <Room room={room} fromdate={fromdate} todate={todate} />
+            <div  className="col-md-9 mt-3"> {/* Ensure you use col-md-9 correctly */}
+              <Room room={room} /> {/* Pass room to the Room component */}
             </div>
           ))
         ) : (
-          <Error/>
+         <Error/>
         )}
       </div>
     </div>

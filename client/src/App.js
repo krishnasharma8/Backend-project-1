@@ -1,4 +1,4 @@
-// import logo from "./logo.svg";
+import logo from "./logo.svg";
 import "./App.css";
 
 import Navbar from "./components/Navbar";
@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/home" element={<Homescreen />} />
-          <Route path="/book/:roomid/:fromdate/:todate" element={<Bookingscreen />} /> {/* Add route for Bookingscreen */}
+          <Route path="/book/:roomid" element={<Bookingscreen />} /> {/* Add route for Bookingscreen */}
           <Route path='/register' element={<Registerscreen/>}></Route>
           <Route path='/login' element={<Loginscreen/>}></Route>
         </Routes>

@@ -18,19 +18,32 @@ const roomSchema = mongoose.Schema({
         required: true,
     },
     imageurls: [],
-    currentbookings:[],
+    currentbookings: [
+        {
+            bookingid: { type: String, required: true },
+            userid: { type: String, required: true },
+            fromdate: { type: String, required: true },
+            todate: { type: String, required: true },
+            description: { type: String }, // Optional field for description
+            status: {
+                type: String,
+                required: true,
+                default: "booked",  // Default status for bookings
+            },
+        }
+    ],
+    
     type: {
         type: String,
         required: true,
     },
-    description: {
+    description: { 
         type: String,
-        required: true,
-    }
+        required: true }
+
 }, {
     timestamps: true,
-})
-
+});
 
 const Room = mongoose.model("rooms", roomSchema);
 module.exports = Room;

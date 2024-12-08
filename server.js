@@ -8,6 +8,7 @@ const port = process.env.PORT || 5000;
 // Import routes
 const roomsRoute = require('./routes/roomsRoute');
 const usersRoute = require('./routes/usersRoute'); // Ensure the correct path to your users route
+const bookingsRoute = require('./routes/bookingsRoute');
 // Enable CORS
 app.use(cors());
 
@@ -24,5 +25,4 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => console.log(`Node Server Started using nodemon on port ${port}`));
-
+app.listen(port, () => console.log('Node Server Started using nodemon on port ${port}'));

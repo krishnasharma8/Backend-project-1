@@ -17,6 +17,8 @@ connectDb();
 // Define routes
 app.use('/api/rooms', roomsRoute);
 app.use('/api/users', usersRoute); // Add this line to enable usersRoute
+app.use('/api/bookings', bookingsRoute);
+
 
 // Root route (optional, for testing purposes)
 app.get('/', (req, res) => {

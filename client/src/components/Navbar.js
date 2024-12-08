@@ -2,22 +2,29 @@ import React from "react";
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
-  function logout(){
+
+  function logout() {
     localStorage.removeItem('currentUser');
-    window.location.href='/login';
+    window.location.href = '/login';
   }
+
   return (
-     
     <div>
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          {" "}
-          {/* Changed `class` to `className` */}
           <a className="navbar-brand" href="/home">
             STAY-HERE
           </a>
+
+          {/* Admin Panel Button placed here */}
+          {user?.isAdmin && (
+            <a className="navbar-brand ms-3" href="/admin">
+              Admin Panel
+            </a>
+          )}
+
           <button
-            className="navbar-toggler" // Changed `class` to `className`
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -31,24 +38,24 @@ function Navbar() {
             <ul className="navbar-nav">
               {user ? (
                 <>
-                  <div class="dropdown">
+                  <div className="dropdown">
                     <button
-                      class="btn btn-secondary dropdown-toggle"
+                      className="btn btn-secondary dropdown-toggle"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                     <i class="fa fa-user"></i>{user.name}
+                      <i className="fa fa-user"></i> {user.name}
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul className="dropdown-menu">
                       <li>
-                        <a class="dropdown-item" href="#">
-                          Bookings
+                        <a className="dropdown-item" href="/profile">
+                          Profile
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onClick={logout}>
-                          Logout 
+                        <a className="dropdown-item" href="#" onClick={logout}>
+                          Logout
                         </a>
                       </li>
                     </ul>
@@ -57,8 +64,6 @@ function Navbar() {
               ) : (
                 <>
                   <li className="nav-item">
-                    {" "}
-                    {/* Removed the `active` class for simplicity */}
                     <a className="nav-link" href="/register">
                       Register
                     </a>

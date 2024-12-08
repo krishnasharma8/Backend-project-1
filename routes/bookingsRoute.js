@@ -1,9 +1,10 @@
+
 const express = require("express");
 const router = express.Router();
 const Booking = require("../models/booking");
+
 const Room = require("../models/room"); // Keep this if needed
 const { v4: uuidv4 } = require("uuid"); // Keep this if needed
-// const stripe = require("stripe")("sk_test_51QOFic...");
 const stripe = require("stripe")("sk_test_51QQFicDbyunLPozjFJjZ9K6ggS7RuXPVQrZ6mGTZLFYqhkIImQGL6XW1lbTru2C66Td8Egix2Rt47wttVmw4iD7O0050NogSwK");
 
 // Book Room Route

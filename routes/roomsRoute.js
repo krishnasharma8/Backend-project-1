@@ -26,4 +26,18 @@ router.post('/getroombyid', async (req, res) => {
     }
 });
 
+router.post("/addroom", async (req, res) => {
+    try {
+      console.log('Incoming Request:', req.body); // Log incoming request
+      const newroom = new Room(req.body);
+      await newroom.save();
+      res.send('New Room Added Successfully');
+    } catch (error) {
+      console.error('Error Adding Room:', error); // Log detailed error
+      return res.status(400).json({ message: error.message });
+    }
+  });
+  
+
+
 module.exports = router;

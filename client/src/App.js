@@ -7,6 +7,7 @@ import Loginscreen from "./screens/Loginscreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute
 import styles from './App.module.css'; // Import CSS Module
+import AdminScreen from './screens/AdminScreen';  // Adjust the path as needed
 import LandingScreen from "./screens/LandingScreen";
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-           <Route
+          <Route
             path="/book/:roomid/:fromdate/:todate"
             element={
               <ProtectedRoute>
@@ -32,7 +33,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-         
           <Route
             path="/profile"
             element={
@@ -41,7 +41,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-           
+           <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminScreen />
+              </ProtectedRoute>
+            }
+          />
             <Route
             path="/"
             element={

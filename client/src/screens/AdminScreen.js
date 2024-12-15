@@ -175,49 +175,53 @@ export function Users() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const { data } = await axios.get('/api/users/getallusers');
-        setUsers(data);
+        const { data } = await axios.get('/api/users/getallusers', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Include token
+          },
+        });
+        setUsers(data); // Update state
         setLoading(false);
       } catch (err) {
-        console.log(err);
+        console.error(err);
         setLoading(false);
         setError(true);
       }
     };
 
     fetchUsers();
-  }, []); // Empty dependency array ensures this runs once after the component mounts
+  }, []);
+
+  if (loading) return <Loader />;
+  if (error) return <Error message="Failed to fetch users" />;
 
   return (
-    <div className="row">
-      <div className='col-md-12' style={{ textAlign: "left" }}>
-        <h1>Users</h1>
-        {loading && <Loader />}
-        <table className="table table-dark table-striped">
-          <thead className='bs'>
-            <tr>
-              <th>User ID</th>
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Is Admin</th>
+    <div>
+      <h1>Users</h1>
+      <table className="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Is Admin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(user => (
+            <tr key={user._id}>
+              <td>{user._id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.role === 'admin' ? 'Yes' : 'No'}</td>
             </tr>
-          </thead>
-          <tbody>
-            {users.length > 0 && users.map(user => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role === 'admin' ? "Yes" : "No"}</td>
-              </tr>
-            ))}
-            {users.length === 0 && !loading && !error && <h1 style={{color:'black'}}>No users found.</h1>}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
+
 
 // Add Room 
 export function Addroom() {

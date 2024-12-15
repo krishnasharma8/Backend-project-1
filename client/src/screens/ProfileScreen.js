@@ -37,7 +37,7 @@ export function MyBookings({ user }) {
   }
 
   if (error) {
-    return <Error message="There was an error fetching your bookings." />;
+    return <Error message="No Bookings found for this user." />;
   }
 
   // Corrected cancelBooking function

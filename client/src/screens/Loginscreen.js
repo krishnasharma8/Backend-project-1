@@ -19,6 +19,7 @@ function Loginscreen() {
 
             // Save token in localStorage
             localStorage.setItem('currentUser', JSON.stringify(result.data));
+            localStorage.setItem('token',result.data.token)
 
             // Redirect to home page
             window.location.href = '/home';
@@ -51,6 +52,7 @@ function Loginscreen() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+
                         <button className='btn btn-primary mt-3' onClick={Login}>Login</button>
                     </div>
                 </div>

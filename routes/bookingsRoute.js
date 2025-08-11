@@ -70,7 +70,9 @@ router.post("/bookroom", async (req, res) => {
     } else {
       res.status(500).json({ message: "Payment failed" });
     }
-  } catch (error) {
+  }
+  
+  catch (error) {
     res.status(500).json({
       message: "An error occurred while processing your request",
       error: error.message,
